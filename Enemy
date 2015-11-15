@@ -1,0 +1,38 @@
+
+package avoidancegame;
+
+/**
+ *
+ * @author rohan
+ */
+public abstract class Enemy {
+	/**
+		* if there were more enemies implemented at some point we have this abstract 
+		* class. Currently only one enemy bullet bill 
+		*/
+	/**
+		* x coordinate of the enemy
+		*/
+public int x;
+/**
+	* y coordinate of the enemy
+	*/
+public int y;
+/**
+	* speed in pixels per refresh
+	*/
+public int speed;
+/**
+	* Makes an enemy with coordinates inX and inY
+	* @param inX desired x coordinate
+	* @param inY desired y coordinate
+	*/
+	public Enemy(int inX,int inY){
+	x=inX;
+	y=inY;
+}
+	/**
+		* ALL Enemies will move around on the screen but in diffeent ways
+		*/
+	public abstract void move();
+}
