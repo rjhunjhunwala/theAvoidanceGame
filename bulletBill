@@ -1,0 +1,54 @@
+
+package avoidancegame;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ *
+ * @author rohan
+ */
+public class bulletBill extends Enemy{
+
+	
+	/**
+		* moves from left to right and destroys itself when it gets off the screen
+		*/
+private boolean stillGoing=true;
+/**
+	 * makes a bullet bill using the Enemy constructor and picks a speed based on
+	 * the score and a random seed
+	 * @param inX
+	 * @param inY
+	 */
+	public bulletBill(int inX, int inY) {
+		super(inX, inY);
+		speed=utility.getRandom(3)+GameFrame.score/1500;
+	}
+
+	@Override
+	/**
+		* runs in its own thread
+		*/
+	public void move() {
+		if(x>=0){
+			x-=speed;
+		}
+		else
+		{
+			try {
+				this.finalize();
+			} catch (Throwable ex) {
+				Logger.getLogger(bulletBill.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+		int xD=x-GameFrame.x;
+		int yD=y-GameFrame.y;
+		//collision detection with the player
+		if(xD>=0&&xD<=25&&yD>=0&&yD<=25){
+			EndGame gameOver=new EndGame();
+			GameFrame.stillGoing=false;
+			gameOver.main(null);
+		}
+	}
+}
