@@ -1,0 +1,118 @@
+package avoidancegame;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+public class GameFrame extends JFrame{
+/**
+	* x coordinate of the square
+	*/
+	public static int x=35;
+	/**
+		* y coordinate of the squares
+		*/
+	public static int y=35;
+	/**
+		* key listener that listens to the moces
+		*/
+			static Controller keyListen=new Controller();
+			/**
+				* all the enemies in the game
+				*/
+static ArrayList<Enemy> enemies=new ArrayList(0);
+/**
+	* the main JFRAME for the game
+	*/
+static GameFrame m;
+/**
+	* whether or not the game is still going and the user is still playing
+	*/
+	public static boolean stillGoing=true;
+	/**
+		* the score that the user has garnered
+		*/
+	static int score;
+	/**
+		* signal to tell this thread to keep going
+		*/
+	static boolean signal=false;
+/**
+	* the user name for use in the high score table
+	*/
+		public static String userName;
+		/**
+			* Plays the game
+			* @param args command line arguments
+			*/
+		public static void main(String[] args){
+			getString userInput=new getString();
+		userInput.main(args);
+		userName=userInput.getStringFromPopUp("What is your name");
+			while(stillGoing){
+			signal=false;
+			x=(int) (3*keyListen.speed);
+		y=(int) (3*keyListen.speed);
+		stillGoing=true;
+		enemies=new ArrayList(0);
+		m=new GameFrame();
+		for(score=0;stillGoing;score++){
+			m.repaint();
+			if(utility.getRandom(250)<=1.0+score/1500){
+	for(long i=0;i<3+score/2000;i++){
+		bulletBill bill=new bulletBill(xSize,40+utility.getRandom(ySize-40));
+	enemies.add(bill);
+	}
+}
+			for(Enemy a:enemies){
+				a.move();
+			}
+			try{
+				Thread.sleep(5);
+			}catch(Exception e){}
+		}
+		boolean playAgain;
+			while(!signal){
+				System.out.print("");
+			}
+		}
+		}
+		/**
+			*How wide the frame is 
+			*/
+static final int xSize=640;
+/**
+	* How tall the frame is
+	*/
+static final int ySize=480;
+/**
+	* creates the game display frame
+	*/
+    GameFrame() {
+					setSize(xSize, ySize);
+					setTitle("The Avoidance Game! (use the wasd keys to move)");
+					setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					setVisible(true);
+				this.addKeyListener(keyListen);
+				this.setResizable(false);
+				this.setBackground(Color.blue);
+				}
+				 
+				@Override
+				/**
+					* updates the display
+					*/
+				public void paint(Graphics g) {
+					g.clearRect(0, 0, xSize, ySize);
+					g.setColor(Color.cyan);
+    g.fillRect(x, y, 25,25);
+				g.setColor(Color.RED);
+				for(Enemy a:enemies){		
+						if(bulletBill.class.isInstance(a)){
+				g.fillRect(a.x-10, a.y-10,10,10);
+				g.fillOval(a.x-15, a.y-10, 10, 10);
+				}
+				}
+				}
+}
